@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Access Verification</title>
+
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+  <style>
+    body {
+      background:#000;
+      color:#fff;
+      font-family:Arial, sans-serif;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+    }
+
+    .box {
+      border:2px solid #fff;
+      padding:40px;
+      border-radius:10px;
+      text-align:center;
+      width:300px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>Verification Required</h2>
+    <p>Please complete verification to continue.</p>
+
+    <div class="cf-turnstile"
+         data-sitekey="YOUR_SITE_KEY"
+         data-callback="verified">
+    </div>
+  </div>
+
+  <script>
+    function verified(token) {
+      // Redirect only after successful verification
+      window.location.href = "https://lscatalogue.nicepage.io/";
+    }
+  </script>
+
+</body>
+</html>
