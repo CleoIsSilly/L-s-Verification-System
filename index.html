@@ -22,7 +22,11 @@
       padding:40px;
       border-radius:10px;
       text-align:center;
-      width:300px;
+      width:320px;
+    }
+
+    .hidden {
+      display:none;
     }
   </style>
 </head>
@@ -30,20 +34,38 @@
 
   <div class="box">
     <h2>Verification Required</h2>
-    <p>Please complete verification to continue.</p>
+    <p>Complete verification to continue.</p>
 
-    <div class="cf-turnstile"
-         data-sitekey="0x4AAAAAACiMiy3k7X2iHn3Q"
-         data-callback="verified">
+    <div id="captcha-container">
+      <div class="cf-turnstile"
+           data-sitekey="0x4AAAAAACiMiy3k7X2iHn3Q"
+           data-callback="captchaSuccess">
+      </div>
+    </div>
+
+    <div id="continueSection" class="hidden">
+      <p>Verification successful.</p>
+      <button onclick="proceed()">Continue</button>
     </div>
   </div>
 
-  <script>
-    function verified(token) {
-      // Redirect only after successful verification
-      window.location.href = "https://lscatalogue.nicepage.io/";
-    }
-  </script>
+<script>
+let verified = false;
+
+function captchaSuccess(token) {
+    verified = true;
+    document.getElementById("continueSection").classList.remove("hidden");
+}
+
+function proceed() {
+    if (!verified) return;
+
+    // Store temporary access flag
+    sessionStorage.setItem("access_granted", "true");
+
+    window.location.href = "https://lscatalogue.nicepage.io/";
+}
+</script>
 
 </body>
 </html>
